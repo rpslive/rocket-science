@@ -2,6 +2,7 @@ package com.right.triangle.resources;
 
 import com.right.triangle.services.PingService;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
@@ -11,11 +12,13 @@ import javax.ws.rs.Path;
 @Path("rs/ping")
 public class PingResource {
 
-    private static PingService pingService;
+    private PingService pingService;
 
-    public static void setPingService(PingService pingService){
-        PingResource.pingService = pingService;
+    @Inject
+    public PingResource(PingService pingService){
+        this.pingService = pingService;
     }
+
     @GET
     public String ping() {
         return pingService.ping();

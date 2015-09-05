@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+       <bean id="settings" class="com.right.triangle.Settings">
+              <property name="serviceBinder" ref="serviceBinder"/>
+       </bean>
+
+       <bean id="serviceBinder" class="com.right.triangle.ServiceBinder">
+             <property name="pingService" ref="pingService"/>
+       </bean>
+
+       <bean id="pingService" class="com.right.triangle.services.PingService"/>
+
+</beans>
