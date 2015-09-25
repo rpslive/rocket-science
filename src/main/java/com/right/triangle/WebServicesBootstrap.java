@@ -1,7 +1,6 @@
 package com.right.triangle;
 
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -32,7 +31,7 @@ public class WebServicesBootstrap {
         }
         CountDownLatch stopSignal = addShutdownHook();
         final HttpServer server = startServer(settings);
-        server.getServerConfiguration().addHttpHandler(new StaticHttpHandler("src/main/webapp"), "/");
+        //server.getServerConfiguration().addHttpHandler(new StaticHttpHandler("src/main/webapp"), "/");
         System.out.println(String.format("Jersey app started with WADL available at " +
                 " %s/application.wadl", BASE_URI));
         stopSignal.await();
