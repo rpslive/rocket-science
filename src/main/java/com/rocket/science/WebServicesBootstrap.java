@@ -1,4 +1,4 @@
-package com.right.triangle;
+package com.rocket.science;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -15,7 +15,7 @@ public class WebServicesBootstrap {
     public static final String BASE_URI = "http://localhost:8080";
 
     public static HttpServer startServer(Settings settings){
-        final ResourceConfig rc = new ResourceConfig().packages("com.right.triangle");
+        final ResourceConfig rc = new ResourceConfig().packages("com.rocket.science");
         rc.register(settings.getServiceBinder());
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }

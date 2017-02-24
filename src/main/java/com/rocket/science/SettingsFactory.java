@@ -1,4 +1,4 @@
-package com.right.triangle;
+package com.rocket.science;
 
 import org.apache.commons.cli.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

@@ -3,14 +3,25 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-       <bean id="settings" class="com.right.triangle.Settings">
+       <import resource="datasource-context.xml"/>
+
+       <bean id="settings" class="com.rocket.science.Settings">
               <property name="serviceBinder" ref="serviceBinder"/>
        </bean>
 
-       <bean id="serviceBinder" class="com.right.triangle.ServiceBinder">
+       <bean id="serviceBinder" class="com.rocket.science.ServiceBinder">
              <property name="pingService" ref="pingService"/>
+              <property name="userService" ref="userService"/>
        </bean>
 
-       <bean id="pingService" class="com.right.triangle.services.PingService"/>
+       <bean id="pingService" class="com.rocket.science.services.PingService"/>
+       <bean id="userService" class="com.rocket.science.services.UserService">
+           <property name="dao" ref="userDao"/>
+       </bean>
+
+    <bean id="userDao" class="com.rocket.science.hibernate.dao.UserDao">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+
 
 </beans>

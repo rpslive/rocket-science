@@ -1,6 +1,6 @@
-package com.right.triangle.resources;
+package com.rocket.science.resources;
 
-import com.right.triangle.services.PingService;
+import com.rocket.science.services.PingService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

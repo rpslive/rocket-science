@@ -1,4 +1,4 @@
-package com.right.triangle.services;
+package com.rocket.science.services;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
