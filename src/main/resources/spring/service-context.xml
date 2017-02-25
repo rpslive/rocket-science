@@ -9,8 +9,11 @@
 
        <bean id="serviceBinder" class="com.right.triangle.ServiceBinder">
              <property name="pingService" ref="pingService"/>
+              <property name="trackerService" ref="trackerService"/>
        </bean>
 
        <bean id="pingService" class="com.right.triangle.services.PingService"/>
+
+       <bean id="trackerService" class="com.right.triangle.services.TrackerService"/>
 
 </beans>
