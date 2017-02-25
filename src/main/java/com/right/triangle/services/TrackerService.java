@@ -16,6 +16,7 @@ import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Position;
 import com.right.triangle.model.Location;
 import com.right.triangle.model.PositionData;
+import com.right.triangle.model.StatusData;
 import javafx.geometry.Pos;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -34,12 +35,11 @@ public class TrackerService {
     private static MongoCollection  collection = db.getCollection("trackerData");
 
     public String getStatus(String cabId, String driverId) {
-        FindIterable<Document> iterable = collection.find(Filters.and(Filters.eq("cabId",cabId),Filters.eq("driverId",driverId)));
-        List<PositionData> dataList = getPositionDataList(iterable);
-        if(dataList.size()>0){
-            return dataList.get(0).getStatus();
+        PositionData data = query(cabId,driverId);
+        if(data!=null){
+            return data.getStatus();
         }
-        return null;
+        return "";
     }
 
     public boolean updateStatus(String cabId, String driverId, String status) {
@@ -89,5 +89,22 @@ public class TrackerService {
         String json = gson.toJson(data);
         // Parse to bson document and insert
         return Document.parse(json);
+    }
+
+    private PositionData query(String cabId,String driverId){
+        FindIterable<Document> iterable = collection.find(Filters.and(Filters.eq("cabId",cabId),Filters.eq("driverId",driverId)));
+        List<PositionData> dataList = getPositionDataList(iterable);
+        if(dataList.size()>0){
+            return dataList.get(0);
+        }
+        return null;
+    }
+
+    public Location trackDriver(String cabId, String driverId) {
+        PositionData data = query(cabId,driverId);
+        if(data!=null){
+            return data.getLoc();
+        }
+        return new Location();
     }
 }

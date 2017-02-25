@@ -65,7 +65,15 @@ public class TrackerResource {
         return trackerService.setPosition(positionData);
     }
 
-
+    @POST
+    @Path("/track/")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Location trackDriver(@Context UriInfo uriInfo,
+                                @Context HttpServletRequest request,
+                                StatusData statusData){
+        return trackerService.trackDriver(statusData.getCabId(),statusData.getDriverId());
+    }
 
 
 }
