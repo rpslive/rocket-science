@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-4.2.xsd
+         http://www.springframework.org/schema/util classpath:org/springframework/beans/factory/xml/spring-util-4.2.xsd
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
+    <context:component-scan base-package="com.rocket.science" />
        <import resource="datasource-context.xml"/>
 
-       <bean id="settings" class="com.rocket.science.Settings">
+
+    <bean id="settings" class="com.rocket.science.Settings">
               <property name="serviceBinder" ref="serviceBinder"/>
        </bean>
 
        <bean id="serviceBinder" class="com.rocket.science.ServiceBinder">
-             <property name="pingService" ref="pingService"/>
-              <property name="userService" ref="userService"/>
+                <property name="bookingRequestService" ref="bookingRequestService" />
        </bean>
 
-       <bean id="pingService" class="com.rocket.science.services.PingService"/>
-       <bean id="userService" class="com.rocket.science.services.UserService">
-           <property name="dao" ref="userDao"/>
-       </bean>
 
-    <bean id="userDao" class="com.rocket.science.hibernate.dao.UserDao">
-        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+        <bean id="bookingRequestService" class="com.rocket.science.services.BookingRequestService">
+            <property name="dao" ref="BookingDao"/>
+        </bean>
+    
+    <bean id="BookingDao" class="com.rocket.science.hibernate.dao.BookingRequestDao">
+        <property name="hibernateTemplate" ref="hibernateTemplate"></property>
     </bean>
 
 

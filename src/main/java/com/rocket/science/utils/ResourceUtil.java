@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by sinraja on 2/24/17.
- */
+
 public class ResourceUtil<T> {
 
     public ServiceUtil<T> service;
@@ -94,6 +92,7 @@ public class ResourceUtil<T> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response list(@Context UriInfo uriInfo,
                          @Context HttpServletRequest request){
+
         Map<String,List<T>> responseMap = new HashMap<>();
         List<T> result = service.getAll();
         if(result != null){

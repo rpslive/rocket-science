@@ -7,9 +7,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 import java.net.URI;
 import java.util.concurrent.CountDownLatch;
 
-/**
- * Created by rpslive on 05/09/15.
- */
 public class WebServicesBootstrap {
 
     public static final String BASE_URI = "http://localhost:8080";
