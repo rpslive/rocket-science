@@ -1,29 +1,21 @@
 package com.rocket.science.hibernate.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
- * Created by shamimh on 25/02/17.
- * Model class for handling Customer Booking request
+ * Created by shamimh on 26/02/17.
  */
-@Entity
-@XmlRootElement
-@Table(name="BookingRequest")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class BookingRequest implements Serializable {
-
-
+public class BookingTest {
     private Position sourcePosition;
     private Position destinationPosition;
     Date time;
     int id ;
 
-    public BookingRequest(Position sourcePosition, Position destinationPosition, Date time, int id) {
+    public BookingTest(Position sourcePosition, Position destinationPosition, Date time, int id) {
         this.sourcePosition = sourcePosition;
         this.destinationPosition = destinationPosition;
         this.time = time;
@@ -56,8 +48,7 @@ public class BookingRequest implements Serializable {
 
     @Id
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+
     public int getId() {
         return id;
     }
@@ -66,17 +57,16 @@ public class BookingRequest implements Serializable {
         this.id = id;
     }
 
-    public BookingRequest() {
-    }
-
-
     @Override
     public String toString() {
-        return "BookingRequest{" +
+        return "BookingTest{" +
                 "sourcePosition=" + sourcePosition +
                 ", destinationPosition=" + destinationPosition +
                 ", time=" + time +
                 ", id=" + id +
                 '}';
+    }
+
+    public BookingTest() {
     }
 }

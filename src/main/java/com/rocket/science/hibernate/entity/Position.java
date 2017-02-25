@@ -14,9 +14,21 @@ public class Position implements Serializable {
         this.lon = lon;
     }
 
+    public Position() {
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "lat='" + lat + '\'' +
+                ", lon='" + lon + '\'' +
+                '}';
+    }
+
     public String getLat() {
 
         return lat;
+
     }
 
     public void setLat(String lat) {

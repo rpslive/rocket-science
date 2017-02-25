@@ -7,9 +7,7 @@ import com.google.gson.JsonObject;
 import com.rocket.science.constants.Constant;
 import com.rocket.science.externalServices.DriverManagerService;
 import com.rocket.science.helper.HttpClientHelper;
-import com.rocket.science.hibernate.entity.BookingRequest;
-import com.rocket.science.hibernate.entity.DriverTracker;
-import com.rocket.science.hibernate.entity.DriverTrackerETA;
+import com.rocket.science.hibernate.entity.*;
 import com.rocket.science.services.BookingRequestService;
 import com.rocket.science.utils.ManagerUtil;
 import com.rocket.science.utils.ResourceUtil;
@@ -61,9 +59,8 @@ public class BookingRequestResource extends ResourceUtil<BookingRequest>{
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response BookCab(BookingRequest entity ){
+        System.out.println(entity.toString());
         Map<String,String> responseMap = new HashMap<>();
-
-
 
         // save the data to Database for use age later.
         //TODO : validate agency data
