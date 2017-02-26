@@ -1,0 +1,14 @@
+The Design of Hackathon:
+
+Customer Management Service: Any customer request goes here. This is the first point of serving a customer request related to booking of cab. It will call the Booking Experience Service.
+
+Booking Experience Service: This service calls the allocation service and updates the booking information, it handles the driver cancellations by calling the cab allocation service automatically in case of any cancellations. Driver updates are also exposed to this service.
+
+Cab Allocation Service: This Service gets all the list of nearest Cab under the asked category(prime, mini, SUV)within the configurable radius keeping the latitude and longitutde of the customer as the centre from the Tracking Service.
+The input to the service is Customer(sourceLatitude, sourcelongitutde, destinationLatitude, destinationLongitude, Category, time);
+It does preprocessing to see if the location(city) is serviceable by us and then calls the Tracking service. After receiving the list of Cabs from Tracking Service , it tries to match booking to a driver based on the business requirements.It then calls the Driver Management Service, which returns back the available cabId and attaches it to the bookingId. 
+After successful booking, it calls customer management service.
+
+Tracking Service: Given the customer coordinates, city and the cab category, this service queries the underlying mnongoDB to get the list of Top n nearest Cabs for the customer location and sends the response to the Allocator Service.
+
+Driver Management Service: All the driver requests goes here. This service updates the cache(distubuted cache for Driver status in Tracking service) across multiple booking requests and tries to book  first idle driver it identifies for the current request. After being successful to change the status of driver cache and MongoDB, It returns a success message to the concerned driver using Notification service.
