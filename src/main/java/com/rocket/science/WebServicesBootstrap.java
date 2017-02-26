@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class WebServicesBootstrap {
 
-    public static final String BASE_URI = "http://localhost:8080";
+    public static final String BASE_URI = "http://localhost:8081";
 
     public static HttpServer startServer(Settings settings){
         final ResourceConfig rc = new ResourceConfig().packages("com.rocket.science");

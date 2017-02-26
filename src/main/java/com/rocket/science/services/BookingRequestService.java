@@ -10,12 +10,21 @@ import com.rocket.science.hibernate.entity.DriverTracker;
 import com.rocket.science.hibernate.entity.DriverTrackerETA;
 import com.rocket.science.utils.ManagerUtil;
 import com.rocket.science.utils.ServiceUtil;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,11 +51,29 @@ public class BookingRequestService extends ServiceUtil<BookingRequest> {
     @Autowired
     private DriverManagerService driverManagerService;
 
+    public Optional<JSONArray> postRequest(String url, JSONObject jsonobject) {
+        try {
+            HttpClient client = new DefaultHttpClient();
+            HttpPost request = new HttpPost(url);
+            StringEntity params = new StringEntity(jsonobject.toString());
+            request.addHeader("content-type", "application/json");
+            request.setEntity(params);
+            HttpResponse response = client.execute(request);
+            //return Optional.of(new JSONObject(response.getEntity().getContent().toString()));
+            String json_string = EntityUtils.toString(response.getEntity());
+            JSONArray temp1 = new JSONArray(json_string);
+            return Optional.of(temp1);
+
+        } catch (Exception var10) {
+            return Optional.empty();
+        }
+    }
+
     public void book(BookingRequest entity) {
         Optional<JSONObject> jsonOfCustomerLocation = bookingRequestUtil.constructJSONObjectFromModel(entity);
 
         //call the Tracker service using post with driver location to get list of nearby drivers
-        Optional<JSONObject> jsonOfDrivers = httpClientHelper.postRequest(Constant.TrackingService.TrackingServiceURI,jsonOfCustomerLocation.get());
+        Optional<JSONArray> jsonOfDrivers = postRequest(Constant.TrackingService.TrackingServiceURI,jsonOfCustomerLocation.get());
         if(!jsonOfDrivers.isPresent()){
             Response.serverError().status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }

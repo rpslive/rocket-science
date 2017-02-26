@@ -14,6 +14,7 @@ import com.rocket.science.hibernate.entity.DriverTracker;
 import com.rocket.science.hibernate.entity.DriverTrackerETA;
 import com.rocket.science.resources.BookingRequestResource;
 import com.rocket.science.utils.ManagerUtil;
+import jersey.repackaged.com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -59,13 +60,15 @@ public class BookingRequestUtil extends ManagerUtil<BookingRequest,DriverTracker
                    listOfLatLng.add(new LatLng(e.getLat(),e.getLang()));
 
         });
-
+        List<LatLng> destinationLatLng = Lists.newArrayList(new LatLng(Double.valueOf(entity.getSourcePosition().getLat()),Double.valueOf(entity.getSourcePosition().getLon())));
         distanceMatrixApiRequest = distanceMatrixApiRequest.destinations(listOfLatLng.toArray(new LatLng[listOfLatLng.size()]));
         distanceMatrixApiRequest.mode(TravelMode.DRIVING);
+        distanceMatrixApiRequest.origins(listOfLatLng.toArray(new LatLng[listOfLatLng.size()]));
 
         // this is a matrix, so need to traverse and extract only the information we need
         DistanceMatrix  distanceMatrix=  distanceMatrixApiRequest.await();
 
+        System.out.println("called google apis");
        // List<DriverTrackerETA> topNDrivers =
         return getTopDriverWithLowestETA(distanceMatrix,driverTrackers);
 
@@ -90,7 +93,14 @@ public class BookingRequestUtil extends ManagerUtil<BookingRequest,DriverTracker
 
             DriverTracker driverTracker = driverTrackers.get(i);
             Long secondsToArrival =  distanceMatrix.rows[i].elements[i].durationInTraffic.inSeconds;
-            listOfTopDriver.add(new DriverTrackerETA(driverTracker.getCabId(), driverTracker.getDriverId(), driverTracker.getLat() , driverTracker.getLang(),driverTracker.getStatus() , secondsToArrival));
+            if(secondsToArrival == null)
+            {
+                listOfTopDriver.add(new DriverTrackerETA(driverTracker.getCabId(), driverTracker.getDriverId(), driverTracker.getLat() , driverTracker.getLang(),driverTracker.getStatus() , Long.valueOf(1)));
+
+            }
+            else {
+                listOfTopDriver.add(new DriverTrackerETA(driverTracker.getCabId(), driverTracker.getDriverId(), driverTracker.getLat(), driverTracker.getLang(), driverTracker.getStatus(), secondsToArrival));
+            }
 
         }
         return listOfTopDriver;
@@ -99,17 +109,18 @@ public class BookingRequestUtil extends ManagerUtil<BookingRequest,DriverTracker
 
 
     @Override//TODO need to implment this class, although we can do without it now
-    public List<DriverTracker> parseJsonToDrivers(JSONObject jsonOfDrivers){
+    public List<DriverTracker> parseJsonToDrivers(JSONArray jsonOfDrivers){
         List<DriverTracker> driverTrackers = new ArrayList<>();
-        JSONArray msg = (JSONArray) jsonOfDrivers.get("PositionData");
-        Iterator<Object> iterator = msg.iterator();
+      //  JSONArray msg = (JSONArray) jsonOfDrivers.get("PositionData");
+        Iterator<Object> iterator = jsonOfDrivers.iterator();
         while (iterator.hasNext()) {
             JSONObject driverJson = (JSONObject) iterator.next();
             //TODO implement builder/step builder pattern if time permits.
-            String cabId = (String)driverJson.get(Constant.DriverConstants.cabId);;
+            //driverJson = driverJson.getJSONObject("loc");
+            String cabId = (String)driverJson.get(Constant.DriverConstants.cabId);
             String driverId = (String)driverJson.get(Constant.DriverConstants.driverId);
-            Double lat = (Double)driverJson.get(Constant.DriverConstants.lat);;
-            Double lon = (Double)driverJson.get(Constant.DriverConstants.lon);;
+            Double lat = (Double)driverJson.getJSONObject("loc").get(Constant.DriverConstants.lat);;
+            Double lon = (Double)driverJson.getJSONObject("loc").get(Constant.DriverConstants.lon);;
             String status = (String)driverJson.get(Constant.DriverConstants.Status);
             DriverTracker driverTracker = new DriverTracker(cabId,driverId,lat,lon,status);//driverJson.get();
             driverTrackers.add(driverTracker);

@@ -148,7 +148,7 @@
             <artifactId>clientHelper</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>/Users/shamimh/Downloads/clientHelper-master/target/clienthelper-1.0-SNAPSHOT.jar</systemPath>
+            <systemPath>/Users/sinraja/Downloads/clientHelper-master/target/clienthelper-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
 

@@ -22,12 +22,12 @@ public class Constant {
         public static final String driverId = "driverId";
         public static final String lat = "lat";
         public static final String lon = "lon";
-        public static final String Status= "Status";
+        public static final String Status= "status";
 
     }
 
     public class TrackingService {
-        public static final String TrackingServiceURI = "localhost:8080/rs/tracker/nearby";
+        public static final String TrackingServiceURI = "http://localhost:8080/rs/tracker/nearby";
     }
 
     public class DriverManagement {

@@ -5,6 +5,7 @@ import com.rocket.science.hibernate.entity.BookingRequest;
 import com.rocket.science.hibernate.entity.DriverTracker;
 import com.rocket.science.manager.BookingRequestUtil;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,7 +42,7 @@ public abstract class ManagerUtil<T,U,V> {
 
     };
 
-    public abstract List<V> parseJsonToDrivers(JSONObject jsonOfDrivers);
+    public abstract List<V> parseJsonToDrivers(JSONArray jsonOfDrivers);
 
 
 }
