@@ -1,10 +1,13 @@
 package com.rocket.science.services;
 
+import com.oracle.javafx.jmx.json.JSONException;
 import com.rocket.science.helper.Constants;
 import com.rocket.science.helper.HttpClientHelper;
 import com.rocket.science.hibernate.entity.Driver;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.glassfish.jersey.internal.inject.Custom;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,7 +38,14 @@ public class DriverManagementService {
     }
 
     public boolean setStatus(Driver driver,String status){
-        return Boolean.parseBoolean(new HttpClientHelper().getRequest("tracking service").toString());
+            try {
+                return Boolean.parseBoolean(new HttpClientHelper().postRequest("tracking service",
+                        new JSONObject("{\"cabId\":"+driver.cabId+",\"driverId\":"+driver.driverId+",\"status\":"+status+"}")).toString());
+            } catch (org.json.JSONException e) {
+                e.printStackTrace();
+            }
+
+            return false;
     }
 
     public String getStatus(Driver driver){
@@ -43,7 +53,15 @@ public class DriverManagementService {
     }
 
     public String trackDriver(Driver driver){
-        return new HttpClientHelper().getRequest("tracking service").toString();
+        try {
+            return new HttpClientHelper().postRequest("tracking service",
+                    new JSONObject("{\"cabId\":"+driver.cabId+",\"driverId\":"+driver.driverId+
+                            ",\"status\":"+Constants.DriverStatus.IN_TRIP.toString()+"}")).toString();
+        } catch (org.json.JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 
