@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
  * Created by shamimh on 25/02/17.
  */
 @Component
+@Configurable
 public class BookingRequestUtil extends ManagerUtil<BookingRequest,DriverTrackerETA,DriverTracker> {
 
     private static final Logger LOGGER = Logger.getLogger(BookingRequestUtil.class);

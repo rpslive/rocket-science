@@ -6,7 +6,9 @@ import java.util.List;
 public class ServiceUtil<T> {
 
 
+    public void book(T t){
 
+    }
     private DaoUtil<T> dao;
 
     public DaoUtil<T> getDao() {

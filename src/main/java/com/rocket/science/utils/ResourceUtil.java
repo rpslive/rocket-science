@@ -1,5 +1,7 @@
 package com.rocket.science.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 public class ResourceUtil<T> {
 
+    @Autowired
     public ServiceUtil<T> service;
 
     public ServiceUtil<T> getService() {

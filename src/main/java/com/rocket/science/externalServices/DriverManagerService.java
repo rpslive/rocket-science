@@ -6,7 +6,9 @@ import com.rocket.science.hibernate.entity.DriverTrackerETA;
 import com.rocket.science.utils.ExternalServiceUtil;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +16,7 @@ import java.util.Optional;
 /**
  * Created by shamimh on 26/02/17.
  */
+@Component
 public class DriverManagerService extends ExternalServiceUtil {
 
     @Autowired
