@@ -1,5 +1,6 @@
 package com.right.triangle.resources;
 
+import com.right.triangle.model.BookingRequest;
 import com.right.triangle.model.Location;
 import com.right.triangle.model.PositionData;
 import com.right.triangle.model.StatusData;
@@ -23,7 +24,6 @@ import java.util.List;
 @Path("/rs/tracker")
 public class TrackerResource {
 
-
     private TrackerService trackerService;
 
     @Inject
@@ -33,6 +33,7 @@ public class TrackerResource {
 
     @GET
     @Path("/status/{cabId}/{driverId}")
+    @Produces(MediaType.APPLICATION_JSON)
     public String getStatus(@PathParam("cabId") String cabId, @PathParam("driverId") String driverId){
         return trackerService.getStatus(cabId,driverId);
     }
@@ -52,7 +53,9 @@ public class TrackerResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<PositionData> nearby(@Context UriInfo uriInfo,
                                      @Context HttpServletRequest request,
-                                     Location location){
+                                     BookingRequest bookingRequest){
+
+        Location location = bookingRequest.getSourcePosition();
         return trackerService.getNearby(location);
     }
 

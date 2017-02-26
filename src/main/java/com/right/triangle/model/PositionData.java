@@ -10,7 +10,7 @@ import java.sql.Timestamp;
  */
 public class PositionData implements Serializable {
 
-    private static final long serialVersionUID = 2105061907470199595L;
+    private static final long serialVersionUID = 2105061907470192343L;
 
     public PositionData() {
     }

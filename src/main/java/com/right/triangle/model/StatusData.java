@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class StatusData implements Serializable {
 
-    private static final long serialVersionUID = 2105061907470199595L;
+    private static final long serialVersionUID = 2105061907470199345L;
 
     private String cabId;
     private String driverId;
