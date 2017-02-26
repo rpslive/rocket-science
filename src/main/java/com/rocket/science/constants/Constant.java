@@ -31,6 +31,6 @@ public class Constant {
     }
 
     public class DriverManagement {
-        public static final String DriverManagementURI = "";
+        public static final String DriverManagementURI = "http://localhost:8085/dms/driver/locking";
     }
 }

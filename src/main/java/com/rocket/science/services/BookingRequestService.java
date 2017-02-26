@@ -3,6 +3,7 @@ package com.rocket.science.services;
 import com.rocket.science.constants.BookingType;
 
 import com.rocket.science.constants.Constant;
+import com.rocket.science.externalServices.CustomerManagementService;
 import com.rocket.science.externalServices.DriverManagerService;
 import com.rocket.science.helper.HttpClientHelper;
 import com.rocket.science.hibernate.entity.BookingRequest;
@@ -10,6 +11,7 @@ import com.rocket.science.hibernate.entity.DriverTracker;
 import com.rocket.science.hibernate.entity.DriverTrackerETA;
 import com.rocket.science.utils.ManagerUtil;
 import com.rocket.science.utils.ServiceUtil;
+import jersey.repackaged.com.google.common.collect.Lists;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -51,6 +53,9 @@ public class BookingRequestService extends ServiceUtil<BookingRequest> {
     @Autowired
     private DriverManagerService driverManagerService;
 
+    @Autowired
+    private CustomerManagementService customerManagementService;
+
     public Optional<JSONArray> postRequest(String url, JSONObject jsonobject) {
         try {
             HttpClient client = new DefaultHttpClient();
@@ -88,7 +93,12 @@ public class BookingRequestService extends ServiceUtil<BookingRequest> {
             //LOGGER.error("exception from google map Service"+e.getMessage());
         }
 
-        DriverTrackerETA bookedDriverdriver = driverManagerService.getResponseFromDriverMangementService(topOptimisedDriversToBook);//call booking service
+        //got the confirmation from Driver management service for confirmation
+        DriverTrackerETA bookedDriverdriver = driverManagerService.getResponseFromDriverMangementService(topOptimisedDriversToBook);
+
+        //call the customer management service
+
+        customerManagementService.sendConfirmedDriverDetailsToCustomerSystem(Lists.newArrayList(bookedDriverdriver));
 
     }
 

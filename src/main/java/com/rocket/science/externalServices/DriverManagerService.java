@@ -31,23 +31,4 @@ public class DriverManagerService extends ExternalServiceUtil {
 
     }
 
-    private DriverTrackerETA parseJsonToDriverETA(JSONObject jsonOfDrivers){
-
-
-
-        String cabId = (String)jsonOfDrivers.get(Constant.DriverConstants.cabId);;
-        String driverId = (String)jsonOfDrivers.get(Constant.DriverConstants.driverId);
-        Double lat = (Double)jsonOfDrivers.get(Constant.DriverConstants.lat);;
-        Double lon = (Double)jsonOfDrivers.get(Constant.DriverConstants.lon);;
-        Long seconds = (Long)jsonOfDrivers.get("secondsToArrival");
-        String status = (String)jsonOfDrivers.get(Constant.DriverConstants.Status);
-
-        DriverTrackerETA driverTracker = new DriverTrackerETA(cabId,driverId,lat,lon,status,seconds);//driverJson.get();
-
-
-
-        return driverTracker;
-
-
-    };
 }
