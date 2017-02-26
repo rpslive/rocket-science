@@ -3,7 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-       <import resource="datasource-context.xml"/>
 
        <bean id="settings" class="com.rocket.science.Settings">
               <property name="serviceBinder" ref="serviceBinder"/>
@@ -11,17 +10,10 @@
 
        <bean id="serviceBinder" class="com.rocket.science.ServiceBinder">
              <property name="pingService" ref="pingService"/>
-              <property name="userService" ref="userService"/>
+           <property name="driverManagementService" ref="driverManagementService"/>
        </bean>
 
        <bean id="pingService" class="com.rocket.science.services.PingService"/>
-       <bean id="userService" class="com.rocket.science.services.UserService">
-           <property name="dao" ref="userDao"/>
-       </bean>
-
-    <bean id="userDao" class="com.rocket.science.hibernate.dao.UserDao">
-        <property name="hibernateTemplate" ref="hibernateTemplate"/>
-    </bean>
-
+        <bean id="driverManagementService" class="com.rocket.science.services.DriverManagementService"/>
 
 </beans>
