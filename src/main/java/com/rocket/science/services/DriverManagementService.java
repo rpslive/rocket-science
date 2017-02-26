@@ -40,7 +40,7 @@ public class DriverManagementService {
     public boolean setStatus(Driver driver,String status){
             try {
                 return Boolean.parseBoolean(new HttpClientHelper().postRequest("tracking service",
-                        new JSONObject("{\"cabId\":"+driver.cabId+",\"driverId\":"+driver.driverId+",\"status\":"+status+"}")).toString());
+                        new JSONObject("{\"cabId\":\""+driver.cabId+"\",\"driverId\":\""+driver.driverId+"\",\"status\":\""+status+"\"}")).toString());
             } catch (org.json.JSONException e) {
                 e.printStackTrace();
             }
@@ -55,8 +55,8 @@ public class DriverManagementService {
     public String trackDriver(Driver driver){
         try {
             return new HttpClientHelper().postRequest("tracking service",
-                    new JSONObject("{\"cabId\":"+driver.cabId+",\"driverId\":"+driver.driverId+
-                            ",\"status\":"+Constants.DriverStatus.IN_TRIP.toString()+"}")).toString();
+                    new JSONObject("{\"cabId\":\""+driver.cabId+"\",\"driverId\":\""+driver.driverId+
+                            "\",\"status\":\""+Constants.DriverStatus.IN_TRIP.toString()+"\"}")).toString();
         } catch (org.json.JSONException e) {
             e.printStackTrace();
         }
