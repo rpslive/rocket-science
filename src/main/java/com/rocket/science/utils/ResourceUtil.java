@@ -1,7 +1,5 @@
 package com.rocket.science.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -12,10 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Created by sinraja on 2/24/17.
+ */
 public class ResourceUtil<T> {
 
-    @Autowired
     public ServiceUtil<T> service;
 
     public ServiceUtil<T> getService() {
@@ -95,7 +94,6 @@ public class ResourceUtil<T> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response list(@Context UriInfo uriInfo,
                          @Context HttpServletRequest request){
-
         Map<String,List<T>> responseMap = new HashMap<>();
         List<T> result = service.getAll();
         if(result != null){

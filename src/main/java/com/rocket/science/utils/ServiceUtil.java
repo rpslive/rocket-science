@@ -2,13 +2,11 @@ package com.rocket.science.utils;
 
 import java.util.List;
 
-
+/**
+ * Created by sinraja on 2/24/17.
+ */
 public class ServiceUtil<T> {
 
-
-    public void book(T t){
-
-    }
     private DaoUtil<T> dao;
 
     public DaoUtil<T> getDao() {

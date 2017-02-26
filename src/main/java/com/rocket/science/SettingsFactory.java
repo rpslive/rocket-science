@@ -30,7 +30,7 @@ public class SettingsFactory {
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/service-context.xml");
         Settings settings = (Settings) context.getBean("settings");
-        settings.setPort(Integer.parseInt(commandLine.getOptionValue("port","8081")));
+        settings.setPort(Integer.parseInt(commandLine.getOptionValue("port","8080")));
         return settings;
     }
 }

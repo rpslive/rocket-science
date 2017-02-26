@@ -7,6 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+/**
+ * Created by rpslive on 16/10/15.
+ */
 public abstract class DaoUtil<T> {
 
     private HibernateTemplate hibernateTemplate;
